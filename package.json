@@ -2,7 +2,7 @@
   "name": "svg2pdf",
   "version": "1.0.0",
   "description": "CLI tool to batch convert SVG files to PDF using Inkscape",
-  "main": "src/svg2pdf.js",
+  "main": "src/index.js",
   "dependencies": {
     "commander": "^2.11.0",
     "progress": "^2.0.0",
@@ -11,6 +11,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "svg2pdf": "src/index.js"
   },
   "author": "Xavier Decuyper",
   "license": "MIT"
