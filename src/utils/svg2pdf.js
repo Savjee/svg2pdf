@@ -42,20 +42,25 @@ module.exports = (config, callback) => {
       });
   }
 
-  var bar = new ProgressBar(`svg2pdf, ${config.threads} threads [:bar] :current/:total :lastProcessed`,
-    {
-      total: filesToProcess.length,
-      complete: '=',
-      incomplete: ' ',
-      width: 50
-    }
-  );
+  if (!config.noProgressBar) {
+    var bar = new ProgressBar(`svg2pdf, ${config.threads} threads [:bar] :current/:total :lastProcessed`,
+        {
+        total: filesToProcess.length,
+        complete: '=',
+        incomplete: ' ',
+        width: 50
+        }
+    );
+  }
 
   threadPool
-    .on('done', (job, message) => {
-      bar.tick({
-        lastProcessed: job.sendArgs[0].fullPath
-      });
+      .on('done', (job, message) => {
+
+          if (!config.noProgressBar) {
+            bar.tick({
+                lastProcessed: job.sendArgs[0].fullPath
+              });
+            }
     })
     .on('error', function(job, error) {
       console.error('Job errored:', error);

@@ -26,4 +26,9 @@ module.exports = {
      * Path to the input directory (should be absolute)
      */
     inputDirectory: "",
+
+    /**
+     * Boolean controls if we show a progressbar or not. Useful for scripting.
+     */
+    noProgressBar: false,
 }

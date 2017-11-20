@@ -26,4 +26,10 @@ module.exports = (config) => {
     if (program.threads) {
         config.threads = program.threads;
     }
+
+    // A bit tricky: Commander sets "progress" to false if it's being passed by the user
+    // but we use a variable "noProgressBar" so we invert that boolean.
+    if (program.progress === false) {
+        config.noProgressBar = true;
+    }
 }
