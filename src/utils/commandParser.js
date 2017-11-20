@@ -26,7 +26,7 @@ module.exports = (config, args) => {
         .option('--no-progress', 'Don\'t show the progress bar')
         .option('--inkscape <path>', 'Path to the Inkscape binary');
 
-    program.parse(process.argv);
+    program.parse(args || process.argv);
 
     if (program.threads) {
         config.threads = program.threads;
