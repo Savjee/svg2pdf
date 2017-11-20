@@ -41,4 +41,9 @@ module.exports = (config) => {
     if (program.progress === false) {
         config.noProgressBar = true;
     }
+
+    // If input and output directoy are not defined, show the help!
+    if (config.inputDirectory === "" || config.outputDirectory === "") {
+        program.help();
+    }
 }
