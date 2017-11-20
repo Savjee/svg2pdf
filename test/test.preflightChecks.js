@@ -1,6 +1,5 @@
 const expect = require('chai').expect;
 const utils = require('../src/utils/index.js');
-const exec = require('child_process').exec;
 
 describe('Testing preflight checks', () => {
 
@@ -36,11 +35,6 @@ describe('Testing preflight checks', () => {
     config.outputDirectory = __dirname + "/output";
     config.inputDirectory = __dirname + "/input";
 
-    // TEST
-    exec("which inkscape", (a, b, c) => {
-      console.log(a, b, c);
-    });
-
     expect(() => {
       utils.preflightChecks(config);
     }).to.not.throw();
@@ -50,5 +44,6 @@ describe('Testing preflight checks', () => {
 });
 
 function getCopyOfDefaultSettings() {
-  return JSON.parse(JSON.stringify(utils.defaultConfig));
+  const config = utils.defaultConfig;
+  return JSON.parse(JSON.stringify(config));
 }
