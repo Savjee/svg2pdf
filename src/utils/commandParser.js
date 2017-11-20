@@ -27,6 +27,10 @@ module.exports = (config) => {
         config.threads = program.threads;
     }
 
+    if (program.overwrite) {
+        config.overwriteFiles = true;
+    }
+
     // A bit tricky: Commander sets "progress" to false if it's being passed by the user
     // but we use a variable "noProgressBar" so we invert that boolean.
     if (program.progress === false) {

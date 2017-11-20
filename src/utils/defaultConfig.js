@@ -31,4 +31,9 @@ module.exports = {
      * Boolean controls if we show a progressbar or not. Useful for scripting.
      */
     noProgressBar: false,
+
+    /**
+     * Whether or not we allow output files to be overwritten.
+     */
+    overwriteFiles: false,
 }

@@ -21,14 +21,20 @@ module.exports = (config, callback) => {
       .run((input, done) => {
         // A thread has no scope at all, so we need to reimport these dependencies
         const path = require('path');
+        const fs = require('fs');
         const exec = require('child_process').exec;
 
-        const newFilename = path
-          .basename(input.fullPath)
-          .replace('.svg', '.pdf');
+        const pathToNewFile = path.normalize(input.config.outputDirectory + '/' +path.basename(input.fullPath).replace('.svg', '.pdf'));
+
+        // Prevent files from being overwritten
+        if (input.config.overwriteFiles === false && fs.existsSync(pathToNewFile)) {
+            // console.log('File already exists, not overwriting: ' + pathToNewFile);
+            done();
+            return;
+        }
+
         const command = `${input.config
-          .pathToInkscape} "${input.fullPath}" --export-pdf "${input.config
-          .outputDirectory}/${newFilename}"`;
+          .pathToInkscape} "${input.fullPath}" --export-pdf "${pathToNewFile}"`;
 
         // console.log('--> Processing ' + input.fullPath);
         exec(command, (a, b, c) => {
@@ -45,22 +51,21 @@ module.exports = (config, callback) => {
   if (!config.noProgressBar) {
     var bar = new ProgressBar(`svg2pdf, ${config.threads} threads [:bar] :current/:total :lastProcessed`,
         {
-        total: filesToProcess.length,
-        complete: '=',
-        incomplete: ' ',
-        width: 50
+            total: filesToProcess.length,
+            complete: '=',
+            incomplete: ' ',
+            width: 50
         }
     );
   }
 
   threadPool
       .on('done', (job, message) => {
-
           if (!config.noProgressBar) {
             bar.tick({
                 lastProcessed: job.sendArgs[0].fullPath
-              });
-            }
+            });
+        }
     })
     .on('error', function(job, error) {
       console.error('Job errored:', error);
