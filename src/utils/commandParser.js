@@ -1,7 +1,11 @@
-const program = require('commander');
+const Commander = require('commander');
 const packageJson = require('../../package.json');
 
-module.exports = (config) => {
+module.exports = (config, args) => {
+
+    // Force creating a new instance, see issue:
+    // https://github.com/tj/commander.js/issues/438
+    const program = new Commander.Command();
 
     program
         .version(packageJson.version)
