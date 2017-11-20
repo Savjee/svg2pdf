@@ -1,4 +1,5 @@
 const OS = require('os');
+const inkscapeLocator = require('./inkscapeLocator');
 
 module.exports = {
 
@@ -11,11 +12,9 @@ module.exports = {
     threads: OS.cpus().length / 2,
 
     /**
-     * Path to the Inkscape CLI tool
-     * TODO: we should do a better job at trying to find where Inkscape is,
-     * right now it only works for macOS.
+     * Try to find the path to the Inkscape CLI tool.
      */
-    pathToInkscape: "/Applications/Inkscape.app/Contents/Resources/bin/inkscape",
+    pathToInkscape: inkscapeLocator(),
 
     /**
      * Path to the output directory (should be absolute)
