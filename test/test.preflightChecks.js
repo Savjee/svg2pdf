@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const utils = require('../src/utils/index.js');
+const exec = require('child_process').exec;
 
 describe('Testing preflight checks', () => {
 
