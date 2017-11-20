@@ -35,6 +35,11 @@ describe('Testing preflight checks', () => {
     config.outputDirectory = __dirname + "/output";
     config.inputDirectory = __dirname + "/input";
 
+    // TEST
+    exec("which inkscape", (a, b, c) => {
+      console.log(a, b, c);
+    });
+
     expect(() => {
       utils.preflightChecks(config);
     }).to.not.throw();
