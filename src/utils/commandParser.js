@@ -17,9 +17,10 @@ module.exports = (config) => {
                 config.outputDirectory = outputDir;
             }
         })
-        .option('-o, --overwrite', 'Overwrite output PDF if already exists.')
+        .option('-o, --overwrite', 'Overwrite output PDF files if already exists')
         .option('-t, --threads <n>', 'Number of threads to use (defaults to the amount of CPU cores)', parseInt)
         .option('--no-progress', 'Don\'t show the progress bar')
+        .option('--inkscape <path>', 'Path to the Inkscape binary');
 
     program.parse(process.argv);
 
@@ -29,6 +30,10 @@ module.exports = (config) => {
 
     if (program.overwrite) {
         config.overwriteFiles = true;
+    }
+
+    if (program.inkscape) {
+        config.pathToInkscape = program.inkscape;
     }
 
     // A bit tricky: Commander sets "progress" to false if it's being passed by the user
