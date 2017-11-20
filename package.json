@@ -8,7 +8,11 @@
     "progress": "^2.0.0",
     "threads": "^0.8.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "md5-file": "^3.2.3",
+    "mocha": "^4.0.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,8 +20,8 @@
     "svg2pdf": "src/index.js"
   },
   "repository": {
-      "type": "git",
-      "url": "https://github.com/Savjee/svg2pdf"
+    "type": "git",
+    "url": "https://github.com/Savjee/svg2pdf"
   },
   "author": "Xavier Decuyper",
   "license": "MIT"
