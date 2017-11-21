@@ -33,6 +33,14 @@ describe('Testing preflight checks', () => {
     }).to.throw();
   });
 
+  it('should fail when input is defined, but output not', () => {
+    config.inputDirectory = __dirname + '/input';
+
+    expect(() => {
+      utils.preflightChecks(config);
+    }).to.throw();
+  });
+
   it('should work when input & output directory is defined', () => {
     config.outputDirectory = __dirname + '/output';
     config.inputDirectory = __dirname + '/input';
