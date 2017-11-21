@@ -25,3 +25,18 @@ describe('Testing commandParser', function () {
     expect(config.overwriteFiles).to.eq(true);
   });
 
+  it('should correctly set path to Inkscape', function () {
+    const fakeInkscape = "/usr/bin/some/path/to/inkscape";
+    const args = ['node', 'svg2pdf', '--inkscape', fakeInkscape, __dirname + '/input', __dirname + '/output'];
+
+    utils.commandParser(config, args);
+
+    expect(config.pathToInkscape).to.eq(fakeInkscape);
+  });
+
+  it('should correctly set no progressbar', function () {
+    const args = ['node', 'svg2pdf', '--no-progress', __dirname + '/input', __dirname + '/output'];
+    utils.commandParser(config, args);
+    expect(config.noProgressBar).to.eq(true);
+  });
+});
