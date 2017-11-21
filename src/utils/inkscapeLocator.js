@@ -8,7 +8,6 @@ module.exports = () => {
 
     for (const path of pathsToCheck) {
         if (fs.existsSync(path)) {
-            console.log(path);
             return path;
         }
     }

@@ -60,11 +60,11 @@ module.exports = (config, callback) => {
   }
 
   threadPool
-      .on('done', (job, message) => {
-          if (!config.noProgressBar) {
-            bar.tick({
-                lastProcessed: job.sendArgs[0].fullPath
-            });
+    .on('done', (job, message) => {
+        if (!config.noProgressBar) {
+          bar.tick({
+              lastProcessed: job.sendArgs[0].fullPath
+          });
         }
     })
     .on('error', function(job, error) {

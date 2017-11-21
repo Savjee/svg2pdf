@@ -1,8 +1,6 @@
 const fs = require('fs');
 
 module.exports = function(config) {
-  // console.log('Running preflight checks...');
-
   if (!fs.existsSync(config.pathToInkscape)) {
     throw 'Inkscape binary not found';
   }
@@ -14,7 +12,4 @@ module.exports = function(config) {
   if (!fs.existsSync(config.outputDirectory)) {
     throw 'Output directory does not exist';
   }
-
-  // console.log('--> Looks good!');
-  // console.log();
 };
