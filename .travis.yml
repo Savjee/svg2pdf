@@ -8,4 +8,6 @@ before_install:
 install:
   - npm install --dev
 script:
-- npm test
+  - npm test
+after_success:
+  - npm run coveralls
