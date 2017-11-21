@@ -3,10 +3,12 @@ const utils = require('../src/utils/index.js');
 const fs = require('fs');
 const md5File = require('md5-file')
 
-describe('Testing preflight checks', function() {
+describe('Testing SVG conversion', function() {
 
-  it('should correctly convert example SVG file', function() {
-    const config = getCopyOfDefaultSettings();
+  let config;
+
+  beforeEach(function () {
+    config = JSON.parse(JSON.stringify(utils.defaultConfig));
     config.inputDirectory = __dirname + '/input/';
     config.outputDirectory = __dirname + '/output/';
     config.overwriteFiles = true;
@@ -14,7 +16,9 @@ describe('Testing preflight checks', function() {
 
     // Disable the timeout of Mocha to allow conversion to take place
     this.timeout(100000);
+  });
 
+  it('should correctly convert example SVG file', function() {
     utils.svg2pdf(config, () => {
 
       // Make sure that the hash of the file equals the hard coded one
@@ -24,7 +28,3 @@ describe('Testing preflight checks', function() {
     });
   });
 });
-
-function getCopyOfDefaultSettings() {
-  return JSON.parse(JSON.stringify(utils.defaultConfig));
-}
