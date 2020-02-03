@@ -23,7 +23,7 @@ describe('Testing SVG conversion', function() {
 
       // Make sure that the hash of the file equals the hard coded one
       const hash = md5File.sync(__dirname + '/output/example.pdf');
-      // expect(hash).equals('4aeea4c82d8e44f08295ecbffa355a53');
+      expect(hash).equals('4aeea4c82d8e44f08295ecbffa355a53');
 
     });
   });

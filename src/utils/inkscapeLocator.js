@@ -3,8 +3,7 @@ const fs = require('fs');
 module.exports = () => {
     const pathsToCheck = [
         '/usr/bin/inkscape',
-        '/Applications/Inkscape.app/Contents/Resources/bin/inkscape', // Older Inkscape version
-        '/Applications/Inkscape.app/Contents/MacOS/Inkscape' // Inkscape 1.0
+        '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
     ]
 
     for (const path of pathsToCheck) {

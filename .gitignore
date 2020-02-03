@@ -1,4 +1,3 @@
 node_modules
 test/output/*.pdf
 coverage/
-.nyc_output

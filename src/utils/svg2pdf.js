@@ -34,7 +34,7 @@ module.exports = (config, callback) => {
         }
 
         const command = `${input.config
-          .pathToInkscape} "${input.fullPath}" --export-file "${pathToNewFile}"`;
+          .pathToInkscape} "${input.fullPath}" --export-pdf "${pathToNewFile}"`;
 
         // console.log('--> Processing ' + input.fullPath);
         exec(command, (a, b, c) => {

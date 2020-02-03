@@ -1,25 +1,25 @@
 {
   "name": "svg2pdf",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "CLI tool to batch convert SVG files to PDF using Inkscape",
   "main": "src/index.js",
   "dependencies": {
     "commander": "^2.17.1",
-    "progress": "^2.0.3",
+    "progress": "^2.0.0",
     "threads": "^0.8.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "coveralls": "^3.0.9",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.2",
+    "istanbul": "^0.4.5",
     "md5-file": "^3.2.3",
-    "mocha": "^7.0.1",
-    "mocha-lcov-reporter": "^1.3.0",
-    "nyc": "^15.0.0"
+    "mocha": "^4.1.0",
+    "mocha-lcov-reporter": "^1.3.0"
   },
   "scripts": {
     "test": "mocha",
-    "cover": "nyc mocha",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "cover": "istanbul cover _mocha",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "bin": {
     "svg2pdf": "src/index.js"
