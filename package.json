@@ -1,6 +1,6 @@
 {
   "name": "svg2pdf",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "CLI tool to batch convert SVG files to PDF using Inkscape",
   "main": "src/index.js",
   "dependencies": {
