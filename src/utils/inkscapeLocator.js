@@ -3,7 +3,8 @@ const fs = require('fs');
 module.exports = () => {
     const pathsToCheck = [
         '/usr/bin/inkscape',
-        '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
+        '/Applications/Inkscape.app/Contents/Resources/bin/inkscape',
+        '/Applications/Inkscape.app/Contents/MacOS/inkscape',
     ]
 
     for (const path of pathsToCheck) {

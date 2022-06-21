@@ -19,11 +19,16 @@ describe('Testing SVG conversion', function() {
   });
 
   it('should correctly convert example SVG file', function() {
+    // Enable reproducible PDF output by making sure the creation date is fixed.
+    // Source: https://gitlab.com/inkscape/inkscape/-/merge_requests/219
+    process.env['SOURCE_DATE_EPOCH'] = 1521324801;
+
+    // Run SVG2PDF!
     utils.svg2pdf(config, () => {
 
       // Make sure that the hash of the file equals the hard coded one
       const hash = md5File.sync(__dirname + '/output/example.pdf');
-      expect(hash).equals('4aeea4c82d8e44f08295ecbffa355a53');
+      expect(hash).equals('c92ab3d968d7c2008cc3e28525fbf1d8');
 
     });
   });

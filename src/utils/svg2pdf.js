@@ -1,4 +1,4 @@
-const Pool = require('threads').Pool;
+const { spawn, Pool, Worker } = require('threads');
 const ProgressBar = require('progress');
 const fs = require('fs');
 const path = require('path');
@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = (config, callback) => {
 
   // Initialize a thread pool!
-  const threadPool = new Pool(config.threads);
+  const threadPool = new Pool(() => spawn(new Worker("./svg2pdf-worker")));
 
   // Read the input directory
   const filesToProcess = fs
@@ -18,33 +18,13 @@ module.exports = (config, callback) => {
     const fullPath = path.resolve(config.inputDirectory + '/' + file);
 
     threadPool
-      .run((input, done) => {
-        // A thread has no scope at all, so we need to reimport these dependencies
-        const path = require('path');
-        const fs = require('fs');
-        const exec = require('child_process').exec;
-
-        const pathToNewFile = path.normalize(input.config.outputDirectory + '/' +path.basename(input.fullPath).replace('.svg', '.pdf'));
-
-        // Prevent files from being overwritten
-        if (input.config.overwriteFiles === false && fs.existsSync(pathToNewFile)) {
-            // console.log('File already exists, not overwriting: ' + pathToNewFile);
-            done();
-            return;
+      .queue(worker => worker(config, fullPath))
+      .then(result => {
+        if (!config.noProgressBar) {
+          bar.tick({
+              lastProcessed: fullPath
+          });
         }
-
-        const command = `${input.config
-          .pathToInkscape} "${input.fullPath}" --export-pdf "${pathToNewFile}"`;
-
-        // console.log('--> Processing ' + input.fullPath);
-        exec(command, (a, b, c) => {
-          // console.log(a, b, c);
-          done();
-        });
-      })
-      .send({
-        config: config,
-        fullPath: fullPath
       });
   }
 
@@ -59,20 +39,13 @@ module.exports = (config, callback) => {
     );
   }
 
-  threadPool
-    .on('done', (job, message) => {
-        if (!config.noProgressBar) {
-          bar.tick({
-              lastProcessed: job.sendArgs[0].fullPath
-          });
-        }
+  threadPool.completed()
+    .then(async () => {
+      await threadPool.terminate();
+      callback();
     })
-    .on('error', function(job, error) {
+    .catch((error) => {
       console.error('Job errored:', error);
       throw '';
-    })
-    .on('finished', () => {
-        threadPool.killAll();
-        callback();
     });
 };
